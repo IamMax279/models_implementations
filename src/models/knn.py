@@ -20,6 +20,13 @@ def knn_regression(k, features):
         cur_distance = sqrt(sum(pow((v[j] - features[j]), 2) for j in range(len(features))))
         distances.append([cur_distance, i])
     
-    print(distances[:30])
+    distances.sort(key=lambda x: x[0])
+    k_distances = distances[:k]
 
-knn_regression(5, new_features)
+    mean = 0
+    for d, i in k_distances:
+        mean += target[i]
+    
+    return mean / k
+
+print(knn_regression(20, new_features))
