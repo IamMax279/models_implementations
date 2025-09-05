@@ -13,10 +13,10 @@ scaler = StandardScaler()
 scaler.fit(data)
 
 # Use standarization because knn is sensitive
-standarized_data = scaler.transform(data)
+standardized_data = scaler.transform(data)
 
 new_features = [7.9123, 38.0, 7.1025, 1.045, 310.0, 2.65, 37.85, -122.20]
-new_features_standarized = scaler.transform(np.array(new_features).reshape(1, -1))[0]
+new_features_standardized = scaler.transform(np.array(new_features).reshape(1, -1))[0]
 
 def knn_regression(k, features):
     if len(features) != len(data[0]):
@@ -26,17 +26,19 @@ def knn_regression(k, features):
 
     distances = []
 
-    for i, v in enumerate(standarized_data):
+    for i, v in enumerate(standardized_data):
         cur_distance = sqrt(sum(pow((v[j] - features[j]), 2) for j in range(len(features))))
         distances.append([cur_distance, i])
     
     distances.sort(key=lambda x: x[0])
     k_distances = distances[:k]
 
-    mean = 0
+    w_mean, w_sum = 0, 0
     for d, i in k_distances:
-        mean += target[i]
+        # cecha * waga
+        w_mean += target[i] * 1 / (d + 1e-8)
+        w_sum += 1 / (d + 1e-8)
     
-    return mean / k
+    return w_mean / w_sum
 
-print(knn_regression(20, new_features_standarized))
+print(knn_regression(20, new_features_standardized))
