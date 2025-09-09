@@ -30,6 +30,7 @@ def knn_regression(k, features):
         cur_distance = sqrt(sum(pow((v[j] - features[j]), 2) for j in range(len(features))))
         distances.append([cur_distance, i])
     
+    # the iteration must start with the shortest distances
     distances.sort(key=lambda x: x[0])
     k_distances = distances[:k]
 

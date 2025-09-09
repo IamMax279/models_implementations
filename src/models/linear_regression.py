@@ -26,7 +26,7 @@ def linear_regression(X, y, feature_count, observation):
         prediction = beta_coeffs[0][0]
 
         for i, c in enumerate(beta_coeffs[1:]):
-            prediction += c[0] * observation[0][i]
+            prediction += c[0] * observation[i]
         
         return prediction
 
@@ -56,7 +56,7 @@ X_train, X_test, y_train, y_test = train_test_split(features, df['MedHouseVal'],
 # 8 features for this specific dataset
 feature_count = 8
 
-test = np.array(X_test.head(1))
+test = np.array(X_test.head(1000))[540]
 res = linear_regression(X_train, y_train, feature_count, test)
 
 print(res)
