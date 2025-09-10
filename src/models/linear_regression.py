@@ -2,8 +2,21 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-def linear_regression(X, y, feature_count, observation):
+def plot_model(model, X, y_test, feature_name):
+    plt.figure(figsize=(10, 6))
+    plt.title('Actual data vs predictions')
+
+    sns.scatterplot(x=X[feature_name], y=y_test, color='blue')
+    sns.scatterplot(x=X[feature_name], y=y_pred, color='red')
+    plt.xlabel(feature_name)
+    plt.ylabel('MedHouseVal')
+
+    plt.show()
+
+def linear_regression(X, y, feature_count, observation, X_test):
     try:
         if not feature_count:
             raise ValueError('Unspecified feature count!')
@@ -28,7 +41,18 @@ def linear_regression(X, y, feature_count, observation):
         for i, c in enumerate(beta_coeffs[1:]):
             prediction += c[0] * observation[i]
         
-        return prediction
+        print('prediction:', prediction)
+
+        # make predictions
+        predictions = []
+
+        X_test_mat = np.array(X_test).reshape(-1, feature_count)
+
+        for o in X_test_mat:
+            res = beta_coeffs[0][0]
+            for i, x in enumerate(o):
+                res += x * beta_coeffs[i + 1][0]
+            predictions.append(res)
 
     except ValueError as e:
         print(f"An error ocurred: {e}")
@@ -56,7 +80,5 @@ X_train, X_test, y_train, y_test = train_test_split(features, df['MedHouseVal'],
 # 8 features for this specific dataset
 feature_count = 8
 
-test = np.array(X_test.head(1000))[540]
-res = linear_regression(X_train, y_train, feature_count, test)
-
-print(res)
+test = np.array(X_test.head(1))[0]
+linear_regression(X_train, y_train, feature_count, test, X_test)
