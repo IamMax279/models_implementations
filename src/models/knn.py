@@ -12,7 +12,7 @@ scaler = StandardScaler()
 # Calculate and 'remember' the standard deviation and average of each feature
 scaler.fit(data)
 
-# Use standarization because knn is sensitive
+# Use standardization because knn is sensitive
 standardized_data = scaler.transform(data)
 
 new_features = [7.9123, 38.0, 7.1025, 1.045, 310.0, 2.65, 37.85, -122.20]
