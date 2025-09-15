@@ -5,16 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def plot_model(model, X, y_test, feature_name, feature_count):
-    y_pred = []
+def plot_model(weights, X, y_test, feature_name):
+    X_test_with_bias = np.hstack([np.ones((X.shape[0], 1)), X])
 
-    # testing feature matrix
-    X_test_mat = np.array(X).reshape(-1, feature_count)
-    for o in X_test_mat:
-        res = model[0][0]
-        for i, x in enumerate(o):
-            res += x * model[i + 1][0]
-        y_pred.append(res)
+    y_pred = (X_test_with_bias @ weights).flatten()
 
     plt.figure(figsize=(10, 6))
     plt.title('Actual data vs predictions')
@@ -26,7 +20,7 @@ def plot_model(model, X, y_test, feature_name, feature_count):
 
     plt.show()
 
-def linear_regression(X, y, feature_count, X_test):
+def train_linear_regression(X, y, feature_count, X_test):
     try:
         if not feature_count:
             raise ValueError('Unspecified feature count!')
@@ -43,25 +37,25 @@ def linear_regression(X, y, feature_count, X_test):
         X_mat_with_bias = np.hstack([np.ones((X_mat.shape[0], 1)), X_mat])
 
         # Use OLS (Ordinary Least Squares) to compute the most efficient betas
-        beta_coeffs = np.linalg.inv(X_mat_with_bias.T @ X_mat_with_bias) \
+        weights = np.linalg.inv(X_mat_with_bias.T @ X_mat_with_bias) \
         @ (X_mat_with_bias.T @ y_vec)
 
-        # make predictions
-        predictions = []
-
-        X_test_mat = np.array(X_test).reshape(-1, feature_count)
-
-        for o in X_test_mat:
-            res = beta_coeffs[0][0]
-            for i, x in enumerate(o):
-                res += x * beta_coeffs[i + 1][0]
-            predictions.append(res)
-
-        # return the model (or in other words, its beta coefficients that we got from using the training set on OLS)
-        return beta_coeffs
+        return weights
 
     except ValueError as e:
         print(f"An error ocurred: {e}")
+
+def predict(weights, X):
+    X_with_bias = np.hstack([np.ones((X.shape[0], 1)), X])
+    return X_with_bias @ weights
+
+def get_score(y, predictions):
+    y_test_vec = np.array(y).reshape(-1, 1)
+    rss = sum((y_test_vec - predictions)**2)
+    tss = sum((y_test_vec - np.mean(y_test_vec))**2)
+    r_sq = 1 - (rss / tss)
+    return r_sq
+
 
 bunch = fetch_california_housing()
 
@@ -86,6 +80,8 @@ X_train, X_test, y_train, y_test = train_test_split(features, df['MedHouseVal'],
 # 8 features for this specific dataset
 feature_count = 8
 
-model = linear_regression(X_train, y_train, feature_count, X_test)
+weights = train_linear_regression(X_train, y_train, feature_count, X_test)
+predictions = predict(weights, X_test)
+score = get_score(y_test, predictions)
 
-plot_model(model, X_test, y_test, 'AveRooms', feature_count)
+plot_model(weights, X_test, y_test, 'AveRooms')
