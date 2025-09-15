@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
-def logistic_regression(X, y, feature_count, lr=0.01, iterations=1000):
+def train_logistic_regression(X, y, feature_count, lr=0.01, iterations=1000):
     X_mat = np.array(X).reshape(-1, feature_count)
     y_vec = np.array(y).reshape(-1, 1)
 
@@ -23,6 +23,7 @@ def logistic_regression(X, y, feature_count, lr=0.01, iterations=1000):
         z = X_with_bias @ weights
         epsilon = 1e-15
         h = np.clip(sigmoid(z), epsilon, 1 - epsilon)
+        # (h - y_vec) is the deviation vector
         gradient = 1/m * (X_with_bias.T @ (h - y_vec))
         weights -= lr * gradient
         if i % 100 == 0:
@@ -30,8 +31,22 @@ def logistic_regression(X, y, feature_count, lr=0.01, iterations=1000):
             cost = -(1/m) * np.sum(y_vec * np.log(h) + (1-y_vec) * np.log(1-h))
             # show the cost variable with floating point precision of 4
             print(f"Iteration {i}: cost = {cost:.4f}")
+    
+    return weights
 
-    print(f"weights: {weights}")
+def predict(X, weights, threshold=0.5):
+    X_with_bias = np.hstack([np.ones((X.shape[0], 1)), X])
+
+    predictions = (X_with_bias @ weights)
+    probabilities = sigmoid(predictions)
+    verdicts = (probabilities >= threshold).astype(int)
+
+    return verdicts
+
+def get_accuracy(y, predictions):
+    y_test_vec = np.array(y).reshape(-1, 1)
+    # use .flatten() to make sure both 'y' and 'predictions' arrays are of the same dimention
+    return np.mean(predictions.flatten() == y_test_vec.flatten())
 
 df = pd.read_csv('src/data/diabetes.csv', sep=',')
 
@@ -67,8 +82,11 @@ features = df[[
 X_train, X_test, y_train, y_test = train_test_split(features, df['diabetes'], test_size=0.25, random_state=42)
 
 scaler = StandardScaler()
-X_train_standardized = scaler.fit_transform(X_train)
+scaler.fit(X_train)
 
-feature_count = len(np.array(features)[0])
-sample = [1, 29.0, 1, 0, 1, 33.76, 5.9, 119]
-logistic_regression(X_train_standardized, y_train, feature_count)
+X_train_standardized, X_test_standardized = scaler.transform(X_train), scaler.transform(X_test)
+
+feature_count = features.shape[1]
+weights = train_logistic_regression(X_train_standardized, y_train, feature_count)
+predictions = predict(X_test_standardized, weights)
+print(get_accuracy(y_test, predictions))
