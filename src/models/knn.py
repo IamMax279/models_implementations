@@ -24,7 +24,7 @@ def knn_regression(k, features):
 
     distances = np.linalg.norm(standardized_data - features, axis=1)
     
-    # get k indexes that would sort the arrary in increasing order
+    # get k indexes that would sort 'distances' in increasing order
     k_idx = np.argsort(distances)[:k]
     k_distances = distances[k_idx]
     k_targets = target[k_idx]
