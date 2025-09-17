@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
@@ -43,10 +45,17 @@ def predict(X, weights, threshold=0.5):
 
     return verdicts
 
-def get_accuracy(y, predictions):
+def get_accuracy(y, predictions, plot_c_mat=True, labels=[0, 1]):
     y_test_vec = np.array(y).reshape(-1, 1)
+    if plot_c_mat:
+        cm = confusion_matrix(y_test_vec, predictions)
+        disp = ConfusionMatrixDisplay(cm, display_labels=labels)
+        disp.plot(cmap='Blues')
+
+        plt.show()
+
     # use .flatten() to make sure both 'y' and 'predictions' arrays are of the same dimention
-    return np.mean(predictions.flatten() == y_test_vec.flatten())
+    print(f"Model score: {np.mean(predictions.flatten() == y_test_vec.flatten())}")
 
 df = pd.read_csv('src/data/diabetes.csv', sep=',')
 
