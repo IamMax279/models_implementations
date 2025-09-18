@@ -98,4 +98,4 @@ X_train_standardized, X_test_standardized = scaler.transform(X_train), scaler.tr
 feature_count = features.shape[1]
 weights = train_logistic_regression(X_train_standardized, y_train, feature_count)
 predictions = predict(X_test_standardized, weights)
-print(get_accuracy(y_test, predictions))
+get_accuracy(y_test, predictions)
