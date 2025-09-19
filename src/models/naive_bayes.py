@@ -35,7 +35,8 @@ def predict(X, cv, priors, likelihoods):
     # 0.001 * 0.002 * ... - hence we use np.log() because the logarithm
     # will convert multiplication to addition and thus, we'll avoid underflow
     log_likelihoods = np.log(likelihoods)
-    posteriors = X_mat @ log_likelihoods.T + priors
+    log_priors = np.log(priors)
+    posteriors = X_mat @ log_likelihoods.T + log_priors
 
     predictions = np.argmax(posteriors, axis=1)
     return predictions
