@@ -14,14 +14,14 @@ I've been doing machine learning for over a month now and I wanted to share my p
 git clone https://github.com/IamMax279/models_implementations.git
 ```
 2. After doing ```cd models_implementations```, activate the virtual environment:
-<br>
+
 On Windows:
-```bash
+```
 venv/Scripts/activate
 ```
-<br>
+
 On Linux/macOS:
-```bash
+```
 scripts venv/bin/activate
 ```
 
