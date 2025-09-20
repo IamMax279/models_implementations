@@ -14,7 +14,9 @@ To run the models, start by cloning the project:
 git clone https://github.com/IamMax279/models_implementations.git
 ```
 After doing ```cd models_implementations```, activate the virtual environment:
+</br>
 On Windows: ```venv/Scripts/activate```
+</br>
 On Linux/macOS: ```scripts venv/bin/activate```
 
 Now, to run any desired model (e.g. linear regression) just do:
