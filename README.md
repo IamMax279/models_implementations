@@ -9,11 +9,11 @@ This is my repo with the implementations of some of the statistical models. Righ
 I've been doing machine learning for over a month now and I wanted to share my progress. I'm open to any feedback/criticism.
 
 ## Running the models ##
-To run the models, start by cloning the project:
+1. To run the models, start by cloning the project:
 ```
 git clone https://github.com/IamMax279/models_implementations.git
 ```
-After doing ```cd models_implementations```, activate the virtual environment:
+2. After doing ```cd models_implementations```, activate the virtual environment:
 </br>
 On Windows:
 ```
@@ -23,8 +23,10 @@ On Linux/macOS:
 ```
 scripts venv/bin/activate
 ```
+>[!IMPORTANT]
+>Make sure you've installed all the packages from ```requirements.txt``` before running any of the models
 
-Now, to run any desired model (e.g. linear regression) just do:
+4. Now, to run any desired model (e.g. linear regression) just do:
 ```
 python -m src.models.linear_regression
 ```
