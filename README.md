@@ -17,7 +17,7 @@ git clone https://github.com/IamMax279/models_implementations.git
 
 On Windows:
 ```
-python3 -m venv venv
+python -m venv venv
 venv/Scripts/activate
 ```
 
