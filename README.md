@@ -13,15 +13,17 @@ I've been doing machine learning for over a month now and I wanted to share my p
 ```
 git clone https://github.com/IamMax279/models_implementations.git
 ```
-2. After doing ```cd models_implementations```, activate the virtual environment:
+2. After doing ```cd models_implementations```, create and activate the virtual environment:
 
 On Windows:
 ```
+python3 -m venv venv
 venv/Scripts/activate
 ```
 
 On Linux/macOS:
 ```
+python3 -m venv venv
 source venv/bin/activate
 ```
 
