@@ -25,7 +25,9 @@ scripts venv/bin/activate
 ```
 
 Now, to run any desired model (e.g. linear regression) just do:
-```python -m src.models.linear_regression```
+```
+python -m src.models.linear_regression
+```
 
 >[!NOTE]
 >More models are coming - right now, I'm working on Decision Trees/Random Forests.
