@@ -19,7 +19,6 @@ On Windows:
 ```
 venv/Scripts/activate
 ```
-</br>
 On Linux/macOS:
 ```
 scripts venv/bin/activate
