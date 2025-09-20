@@ -23,7 +23,8 @@ On Linux/macOS:
 ```
 scripts venv/bin/activate
 ```
-***Make sure you've installed all the packages from ```requirements.txt``` before running any of the models***
+> [!IMPORTANT]
+> Make sure you've installed all the packages from ```requirements.txt``` before running any of the models
 
 3. Now, to run any desired model (e.g. linear regression) just do:
 ```
