@@ -22,7 +22,7 @@ venv/Scripts/activate
 
 On Linux/macOS:
 ```
-scripts venv/bin/activate
+source venv/bin/activate
 ```
 
 > [!IMPORTANT]  
