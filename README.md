@@ -12,6 +12,6 @@ More models are coming - right now, I'm working on Decision Trees/Random Forests
 
 ## Running the models ##
 To run the models, start by cloning the project:
-bash```
+```
 git clone https://github.com/IamMax279/models_implementations.git
 ```
