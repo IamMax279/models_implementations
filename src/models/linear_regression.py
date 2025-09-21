@@ -20,7 +20,7 @@ def plot_model(weights, X, y_test, feature_name):
 
     plt.show()
 
-def train_linear_regression(X, y, feature_count, X_test):
+def train_linear_regression(X, y, feature_count):
     try:
         if not feature_count:
             raise ValueError('Unspecified feature count!')
