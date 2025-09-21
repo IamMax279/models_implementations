@@ -61,3 +61,4 @@ X_train, X_test, y_train, y_test = train_test_split(df['Message'], df['Category'
 cv, priors, likelihoods = train_naive_bayes(X_train, y_train)
 predictions = predict(X_test, cv, priors, likelihoods)
 score = get_accuracy(y_test, predictions)
+print(score)
