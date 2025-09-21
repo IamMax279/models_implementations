@@ -32,7 +32,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-5. Now, to run any desired model (e.g. linear regression) just do:
+4. Now, to run any desired model (e.g. linear regression) just do:
 ```
 python -m src.models.linear_regression
 ```
