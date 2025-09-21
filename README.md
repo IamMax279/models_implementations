@@ -1,6 +1,6 @@
 # Statistical Models Implementations #
 
-This is my repo with the implementations of some of the statistical models. Right now it includes models such as:
+This is my repo with implementations of some of the statistical models. Right now it includes models such as:
 - k-NN (quantitative)
 - Linear Regression
 - Logistic Regression
