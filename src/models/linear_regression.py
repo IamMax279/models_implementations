@@ -80,8 +80,7 @@ X_train, X_test, y_train, y_test = train_test_split(features, df['MedHouseVal'],
 # 8 features for this specific dataset
 feature_count = 8
 
-weights = train_linear_regression(X_train, y_train, feature_count, X_test)
+weights = train_linear_regression(X_train, y_train, feature_count)
 predictions = predict(weights, X_test)
 score = get_score(y_test, predictions)
-
 plot_model(weights, X_test, y_test, 'AveRooms')
